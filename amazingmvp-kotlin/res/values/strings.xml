@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">AmazingMVP-Kotlin</string>
+  <string name="loading">Loading</string>
+  <string name="ok">OK</string>
+  <string name="close">Close</string>
+  <string name="empty">Nothing was found</string>
+  <string name="connection_error">Connection error</string>
+  <string name="try_again">Tente novamente</string>
+</resources>
