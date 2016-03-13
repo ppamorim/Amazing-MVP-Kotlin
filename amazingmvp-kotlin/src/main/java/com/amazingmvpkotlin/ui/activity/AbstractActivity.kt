@@ -6,8 +6,8 @@ import butterknife.ButterKnife
 
 abstract class AbstractActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstance: Bundle?) {
-        super.onCreate(savedInstance)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
         ButterKnife.bind(this)
     }
