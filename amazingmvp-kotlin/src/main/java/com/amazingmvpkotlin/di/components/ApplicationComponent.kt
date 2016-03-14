@@ -15,5 +15,5 @@ interface ApplicationComponent {
     fun application(): Application
     fun executor(): InteractorExecutor
     fun mainThread(): MainThread
-    fun okHttpClient(): OkHttpClient
+//    fun okHttpClient(): OkHttpClient
 }

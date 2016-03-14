@@ -9,7 +9,6 @@ abstract class AbstractActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
-        ButterKnife.bind(this)
     }
 
     abstract fun getLayoutId(): Int

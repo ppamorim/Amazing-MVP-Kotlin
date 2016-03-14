@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.github.ppamorim.amazingmvpkotlinrules.domain.model.Genre
 
 interface HomePresenter : Presenter {
+    fun setViewInterface(view: View)
     fun requestGenres(savedInstanceState: Bundle?)
     interface View {
         fun isReady(): Boolean

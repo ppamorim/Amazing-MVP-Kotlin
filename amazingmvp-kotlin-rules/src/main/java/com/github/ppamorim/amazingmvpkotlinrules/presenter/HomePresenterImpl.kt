@@ -6,6 +6,10 @@ class HomePresenterImpl : HomePresenter {
 
     var view : HomePresenter.View? = null
 
+    override fun setViewInterface(view: HomePresenter.View) {
+        this.view = view
+    }
+
     override fun requestGenres(savedInstanceState: Bundle?) {
         throw UnsupportedOperationException()
     }

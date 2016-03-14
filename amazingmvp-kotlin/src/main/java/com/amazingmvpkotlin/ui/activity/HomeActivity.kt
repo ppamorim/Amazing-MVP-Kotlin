@@ -12,13 +12,17 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.amazingmvpkotlin.R
+import com.amazingmvpkotlin.di.components.HomeComponent
+import com.amazingmvpkotlin.ui.adapter.GenreAdapter
 import com.github.ppamorim.amazingmvpkotlinrules.domain.model.Genre
 import com.github.ppamorim.amazingmvpkotlinrules.presenter.HomePresenter
 import javax.inject.Inject
 
 class HomeActivity : AbstractActivity(), HomePresenter.View {
 
-//    @Inject lateinit var homePresenter: HomePresenter
+    var homeComponent: HomeComponent? = null
+
+    @Inject lateinit var homePresenter: HomePresenter
 
     val toolbar by lazy { findViewById(R.id.toolbar) as Toolbar }
     val viewPager by lazy { findViewById(R.id.view_pager) as ViewPager }
@@ -31,7 +35,10 @@ class HomeActivity : AbstractActivity(), HomePresenter.View {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        homeComponent()!!.inject(this)
         super<AbstractActivity>.onCreate(savedInstanceState)
+        homePresenter.setViewInterface(this)
+        homePresenter.requestGenres(savedInstanceState)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -44,6 +51,7 @@ class HomeActivity : AbstractActivity(), HomePresenter.View {
     }
 
     override fun renderGenres(subGenres: MutableList<Genre>) {
+        configViewPager(subGenres);
         viewPager.setVisibility(View.VISIBLE)
         progressBar.setVisibility(View.GONE)
         warning.setVisibility(View.GONE)
@@ -76,6 +84,19 @@ class HomeActivity : AbstractActivity(), HomePresenter.View {
         progressBar.setVisibility(View.GONE)
         warning.setVisibility(View.VISIBLE)
         tryAgain.setVisibility(View.VISIBLE)
+    }
+
+    fun configViewPager(subGenres: MutableList<Genre>) {
+        viewPager.setAdapter(GenreAdapter(getSupportFragmentManager(), subGenres))
+    }
+
+    fun homeComponent(): HomeComponent? {
+        if (homeComponent == null) {
+            homeComponent = DaggerHomeComponent.builder()
+//                    .applicationModule(ApplicationModule(this))
+                    .build()
+        }
+        return homeComponent
     }
 
 }
