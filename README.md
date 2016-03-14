@@ -1,6 +1,6 @@
 ![Logo 1][1]
 
-[![Build Status](https://api.travis-ci.org/We-Mobile/Amazing-MVP-Kotlin).svg?branch=master)](https://travis-ci.org/ppamorim/Amazing-MVP-Kotlin)
+[![Build Status](https://api.travis-ci.org/ppamorim/Amazing-MVP).svg?branch=master)](https://travis-ci.org/ppamorim/Amazing-MVP)
 
 How to use
 ----------
