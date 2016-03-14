@@ -46,7 +46,7 @@ License
 [2]: http://memesvault.com/wp-content/uploads/Troll-Dad-Dance-Meme-11.gif
 [3]: https://github.com/ppamorim/
 [616]: https://github.com/leonardoxh
-[1]: ./art/amazing_mvp_kotlin.png
+[1]: ./art/amazing_mvp_kotlin2.png
 [13]: https://github.com/facebook/fresco
 [16]: https://github.com/google/dagger
 [18]: https://github.com/JakeWharton/butterknife
