@@ -11,7 +11,7 @@ import com.github.ppamorim.amazingmvpkotlinrules.domain.model.Genre
 interface HomeInteractor {
     fun execute(callback: Callback?)
     interface Callback {
-        fun onGenresLoaded(subGenres: MutableList<Genre>)
+        fun onGenresLoaded(subGenres: List<Genre>)
         fun onGenresEmpty()
         fun onErrorLoad()
         fun onNoConnection(reason: Int)

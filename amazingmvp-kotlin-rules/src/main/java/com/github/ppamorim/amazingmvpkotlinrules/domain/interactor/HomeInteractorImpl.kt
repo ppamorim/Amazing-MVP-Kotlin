@@ -1,8 +1,13 @@
 package com.github.ppamorim.amazingmvpkotlinrules.domain.interactor
 
+import com.bluelinelabs.logansquare.LoganSquare
+import com.github.ppamorim.amazingmvpkotlinrules.domain.model.Genre
+import com.github.ppamorim.amazingmvpkotlinrules.domain.service.GenreService
+import com.github.ppamorim.amazingmvpkotlinrules.domain.service.ServiceCallback
 import com.github.ppamorim.threadexecutor.Interactor
 import com.github.ppamorim.threadexecutor.InteractorExecutor
 import com.github.ppamorim.threadexecutor.MainThread
+import java.io.InputStream
 
 /**
  * This class is the implementation of a async request,
@@ -24,7 +29,37 @@ class HomeInteractorImpl: Interactor, HomeInteractor {
     }
 
     override fun run() {
-        throw UnsupportedOperationException()
+        GenreService().requestGenres(object : ServiceCallback() {
+            override fun onSuccess(inputStream: InputStream) {
+                val genres: List<Genre>? = LoganSquare.parseList(inputStream, Genre::class.java)
+                if (genres != null && genres.size() > 0) {
+                    notifySuccess(genres)
+                } else {
+                    notifyEmpty(0)
+                }
+            }
+            override fun onError(statusCode: Int) {
+                notifyError(statusCode)
+            }
+        })
+    }
+
+    fun notifySuccess(genres: List<Genre>) {
+        mainThread!!.post(Runnable {
+            callback!!.onGenresLoaded(genres)
+        })
+    }
+
+    fun notifyEmpty(reason: Int) {
+        mainThread!!.post(Runnable {
+            callback!!.onNoConnection(reason)
+        })
+    }
+
+    fun notifyError(statusCode: Int) {
+        mainThread!!.post(Runnable {
+            callback!!.onErrorLoad()
+        })
     }
 
 }

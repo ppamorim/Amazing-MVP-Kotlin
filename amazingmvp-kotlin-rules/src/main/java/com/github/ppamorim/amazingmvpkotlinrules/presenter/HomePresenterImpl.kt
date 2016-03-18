@@ -14,11 +14,11 @@ class HomePresenterImpl : HomePresenter {
         throw UnsupportedOperationException()
     }
 
-    override fun saveInstance(instance: Bundle): Bundle {
+    override fun saveInstance(instance: Bundle?): Bundle? {
         return instance
     }
 
-    override fun restoreInstance(instance: Bundle) {
+    override fun restoreInstance(instance: Bundle?) {
         throw UnsupportedOperationException()
     }
 
