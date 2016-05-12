@@ -18,29 +18,34 @@ package com.github.ppamorim.amazingmvpkotlinrules.domain.model
 import android.os.Parcel
 import android.os.Parcelable
 
-class SubGenre : Parcelable {
+data class SubGenre(var id: Long,
+               var title: String,
+               var image: String,
+               var details: String) : Parcelable {
 
-    var id: Long? = 0
-    var title: String? = null
-    var image: String? = null
-    var details: String? = null
+  companion object {
+    @JvmField final val CREATOR: Parcelable.Creator<Genre> =
+      object : Parcelable.Creator<Genre> {
+        override fun createFromParcel(source: Parcel) = Genre(source)
+        override fun newArray(size: Int): Array<Genre?> = arrayOfNulls(size)
+      }
+  }
 
-    constructor(parcel : Parcel) {
-        this.id = parcel.readLong()
-        this.title = parcel.readString()
-        this.image = parcel.readString()
-        this.details = parcel.readString()
-    }
+  constructor(parcel : Parcel) : this(
+    parcel.readLong(),
+    parcel.readString(),
+    parcel.readString(),
+    parcel.readString())
 
-    override fun writeToParcel(parcel: Parcel, flag: Int) {
-        parcel.writeLong(id as Long)
-        parcel.writeString(title)
-        parcel.writeString(image)
-        parcel.writeString(details)
-    }
+  override fun writeToParcel(parcel: Parcel, flag: Int) {
+    parcel.writeLong(id)
+    parcel.writeString(title)
+    parcel.writeString(image)
+    parcel.writeString(details)
+  }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+  override fun describeContents(): Int {
+    return 0
+  }
 
 }

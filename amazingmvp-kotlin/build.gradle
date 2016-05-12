@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
 
   compileSdkVersion 23
-  buildToolsVersion "23.0.2"
+  buildToolsVersion "23.0.3"
 
   defaultConfig {
     applicationId "com.mvpkotlin"
@@ -53,12 +53,12 @@ android {
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   compile project(':amazingmvp-kotlin-rules')
-  compile 'com.android.support:appcompat-v7:23.1.1'
-  compile 'com.android.support:recyclerview-v7:23.1.1'
-  compile 'com.android.support:design:23.1.1'
+  compile 'com.android.support:appcompat-v7:23.3.0'
+  compile 'com.android.support:recyclerview-v7:23.3.0'
+  compile 'com.android.support:design:23.3.0'
   compile 'com.google.dagger:dagger:2.0.2'
   kapt  'com.google.dagger:dagger-compiler:2.0.2'
-  compile 'com.github.JakeWharton:kotterknife:891863ef46'
+  provided 'org.glassfish:javax.annotation:10.0-b28'
 }
 
 kapt {
@@ -66,7 +66,7 @@ kapt {
 }
 
 buildscript {
-  ext.kotlin_version = '1.0.0'
+  ext.kotlin_version = '1.0.1-2'
   repositories {
     mavenCentral()
   }

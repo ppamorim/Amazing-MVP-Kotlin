@@ -5,7 +5,7 @@
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:theme="@style/AppTheme.Base"
-      android:name=".MVPApplication">
+      android:name=".AmazingMvpApplication">
 
     <activity
         android:name=".ui.activity.HomeActivity"

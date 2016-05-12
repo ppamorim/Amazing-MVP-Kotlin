@@ -18,36 +18,28 @@ package com.github.ppamorim.amazingmvpkotlinrules.domain.model
 import android.os.Parcel
 import android.os.Parcelable
 
-class Genre : Parcelable {
+data class Genre(var id : Long, var title : String, var subGenres : List<SubGenre>) : Parcelable {
 
-//    public val CREATOR: Parcelable.Creator<Genre> = object:Parcelable.Creator<Genre> {
-//        override fun createFromParcel(parcelIn:Parcel): Genre {
-//            return Genre(parcelIn)
-//        }
-//
-//        override fun newArray(size: Int): Array<Genre> {
-//            return Array<Genre>()
-//        }
-//    }
+  companion object {
+    @JvmField final val CREATOR: Parcelable.Creator<Genre> =
+      object : Parcelable.Creator<Genre> {
+        override fun createFromParcel(source: Parcel) = Genre(source)
+        override fun newArray(size: Int): Array<Genre?> = arrayOfNulls(size)
+      }
+  }
 
-    var id : Long? = 0
-    var title : String? = null
-    var subGenres : MutableList<SubGenre>? = null
+  constructor() : this(0, "", emptyList())
 
-    constructor(parcel : Parcel) {
-        this.id = parcel.readLong()
-        this.title = parcel.readString()
-//        parcel.readTypedList<SubGenre>(subGenres, SubGenre.CREATOR)
-    }
+  constructor(parcel : Parcel) : this(parcel.readLong(), parcel.readString(), emptyList())
 
-    override fun writeToParcel(parcel: Parcel, flag: Int) {
-        parcel.writeLong(id as Long)
-        parcel.writeString(title)
-        parcel.writeTypedList<SubGenre>(subGenres)
-    }
+  override fun writeToParcel(parcel: Parcel, flag: Int) {
+    parcel.writeLong(id)
+    parcel.writeString(title)
+    parcel.writeTypedList<SubGenre>(subGenres)
+  }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+  override fun describeContents(): Int {
+    return 0
+  }
 
 }

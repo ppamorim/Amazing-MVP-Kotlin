@@ -13,17 +13,17 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.amazingmvpkotlin.di.components
+package com.amazingmvpkotlin.di;
 
-import com.amazingmvpkotlin.di.HomeModule
-import com.amazingmvpkotlin.ui.activity.HomeActivity
-import com.github.ppamorim.amazingmvpkotlinrules.presenter.HomePresenter
-import dagger.Component
-import javax.inject.Singleton
+import com.amazingmvpkotlin.di.scopes.ActivityScope;
+import com.github.ppamorim.amazingmvpkotlinrules.presenter.HomePresenter;
+import com.github.ppamorim.amazingmvpkotlinrules.presenter.HomePresenterImpl;
+import dagger.Module;
+import dagger.Provides;
 
-@Singleton
-@Component(modules = arrayOf(HomeModule::class))
-interface HomeComponent {
-    fun inject(homeActivity: HomeActivity)
-    fun homePresenter(): HomePresenter
+@Module public class HomeModule {
+  @Provides @ActivityScope HomePresenter provideHomePresenter(
+      HomePresenterImpl presenter) {
+    return presenter;
+  }
 }

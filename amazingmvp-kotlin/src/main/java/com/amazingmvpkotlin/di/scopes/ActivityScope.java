@@ -13,17 +13,10 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.amazingmvpkotlin.di
+package com.amazingmvpkotlin.di.scopes;
 
-import com.github.ppamorim.amazingmvpkotlinrules.presenter.HomePresenter
-import com.github.ppamorim.amazingmvpkotlinrules.presenter.HomePresenterImpl
-import dagger.Module
-import dagger.Provides
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import javax.inject.Scope;
 
-@Module class HomeModule {
-
-    @Provides fun provideHomePresenter(homePresenter: HomePresenterImpl) : HomePresenter {
-        return homePresenter
-    }
-
-}
+@Scope @Retention(RetentionPolicy.RUNTIME) public @interface ActivityScope { }

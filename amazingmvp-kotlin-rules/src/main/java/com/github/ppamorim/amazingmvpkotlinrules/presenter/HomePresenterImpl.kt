@@ -16,25 +16,25 @@
 package com.github.ppamorim.amazingmvpkotlinrules.presenter
 
 import android.os.Bundle
+import javax.inject.Inject
 
-class HomePresenterImpl : HomePresenter {
+class HomePresenterImpl @Inject constructor() : HomePresenter {
 
-    var view : HomePresenter.View? = null
+  var view : HomePresenter.HomeView? = null
 
-    override fun setViewInterface(view: HomePresenter.View) {
-        this.view = view
-    }
+  override fun attachView(view: HomePresenter.HomeView) {
+    this.view = view
+  }
 
-    override fun requestGenres(savedInstanceState: Bundle?) {
-        throw UnsupportedOperationException()
-    }
+  override fun requestGenres(savedInstanceState: Bundle?) {
+    throw UnsupportedOperationException()
+  }
 
-    override fun saveInstance(instance: Bundle?): Bundle? {
-        return instance
-    }
+  override fun saveInstanceState(bundle: Bundle?): Bundle? {
+    throw UnsupportedOperationException()
+  }
 
-    override fun restoreInstance(instance: Bundle?) {
-        throw UnsupportedOperationException()
-    }
-
+  override fun restoreInstanceState(bundle: Bundle?) {
+    throw UnsupportedOperationException()
+  }
 }

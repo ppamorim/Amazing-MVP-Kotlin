@@ -13,22 +13,27 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.amazingmvpkotlin.di.components
+package com.amazingmvpkotlin
 
 import android.app.Application
 import com.amazingmvpkotlin.di.ApplicationModule
-import com.github.ppamorim.threadexecutor.InteractorExecutor
-import com.github.ppamorim.threadexecutor.MainThread
-import dagger.Component
-import okhttp3.OkHttpClient
-import javax.inject.Singleton
+import com.amazingmvpkotlin.di.components.ApplicationComponent
+import com.amazingmvpkotlin.di.components.DaggerApplicationComponent
 
-@Singleton
-@Component(modules = arrayOf(ApplicationModule::class))
-interface ApplicationComponent {
-    fun inject(application: Application)
-    fun application(): Application
-    fun executor(): InteractorExecutor
-    fun mainThread(): MainThread
-//    fun okHttpClient(): OkHttpClient
+class AmazingMvpApplication : Application() {
+
+  lateinit var applicationComponent: ApplicationComponent
+
+  override fun onCreate() {
+    initializeDependencyInjector().inject(this)
+    super.onCreate()
+  }
+
+  fun initializeDependencyInjector(): ApplicationComponent {
+    applicationComponent = DaggerApplicationComponent.builder()
+        .applicationModule(ApplicationModule(this))
+        .build()
+    return applicationComponent
+  }
+
 }
