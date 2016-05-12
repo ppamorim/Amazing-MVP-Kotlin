@@ -36,10 +36,7 @@ class HomeActivity : AbstractActivity(), HomePresenter.HomeView {
 
   var homeComponent: HomeComponent? = null
 
-  //With or without companion, this return null after the creation of component
-  companion object {
-    @JvmStatic @Inject lateinit var homePresenter: HomePresenter
-  }
+  @Inject lateinit var homePresenter: HomePresenter
 
   val toolbar by lazy { findViewById(R.id.toolbar) as Toolbar }
   val viewPager by lazy { findViewById(R.id.view_pager) as ViewPager }
@@ -52,12 +49,12 @@ class HomeActivity : AbstractActivity(), HomePresenter.HomeView {
   override fun onCreate(savedInstanceState: Bundle?) {
     homeComponent()?.inject(this)
     super.onCreate(savedInstanceState)
+    homePresenter.attachView(this)
   }
 
   override fun onPostCreate(savedInstanceState: Bundle?) {
     super.onPostCreate(savedInstanceState)
     setSupportActionBar(toolbar)
-    println(homePresenter)
   }
 
   override fun ready(): Boolean = !isFinishing
