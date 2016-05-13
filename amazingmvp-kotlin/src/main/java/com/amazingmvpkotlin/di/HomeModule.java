@@ -16,14 +16,23 @@
 package com.amazingmvpkotlin.di;
 
 import com.amazingmvpkotlin.di.scopes.ActivityScope;
+import com.github.ppamorim.amazingmvpkotlinrules.domain.interactor.HomeInteractor;
+import com.github.ppamorim.amazingmvpkotlinrules.domain.interactor.HomeInteractorImpl;
 import com.github.ppamorim.amazingmvpkotlinrules.presenter.HomePresenter;
 import com.github.ppamorim.amazingmvpkotlinrules.presenter.HomePresenterImpl;
 import dagger.Module;
 import dagger.Provides;
 
 @Module public class HomeModule {
+
   @Provides @ActivityScope HomePresenter provideHomePresenter(
       HomePresenterImpl presenter) {
     return presenter;
   }
+
+  @Provides @ActivityScope HomeInteractor provideHomeInteractor(
+      HomeInteractorImpl interactor) {
+    return interactor;
+  }
+
 }

@@ -13,17 +13,17 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.amazingmvpkotlin.di.components;
+package com.amazingmvpkotlin.di;
 
-import com.amazingmvpkotlin.di.HomeModule;
 import com.amazingmvpkotlin.di.scopes.ActivityScope;
-import com.amazingmvpkotlin.ui.activity.HomeActivity;
-import com.github.ppamorim.amazingmvpkotlinrules.presenter.HomePresenter;
-import dagger.Component;
+import com.github.ppamorim.amazingmvpkotlinrules.presenter.GenrePresenter;
+import com.github.ppamorim.amazingmvpkotlinrules.presenter.GenrePresenterImpl;
+import dagger.Module;
+import dagger.Provides;
 
-@ActivityScope @Component(dependencies = ApplicationComponent.class,
-    modules = { HomeModule.class })
-public interface HomeComponent {
-  void inject(HomeActivity homeActivity);
-  HomePresenter homePresenter();
+@Module public class GenreModule {
+  @Provides @ActivityScope GenrePresenter provideGenrePresenter(
+      GenrePresenterImpl presenter) {
+    return presenter;
+  }
 }

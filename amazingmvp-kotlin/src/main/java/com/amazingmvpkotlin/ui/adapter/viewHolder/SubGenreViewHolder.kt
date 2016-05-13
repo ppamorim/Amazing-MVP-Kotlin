@@ -2,8 +2,6 @@ package com.amazingmvpkotlin.ui.adapter.viewHolder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
-import com.amazingmvpkotlin.R
 import com.github.ppamorim.amazingmvpkotlinrules.domain.model.SubGenre
 
 class SubGenreViewHolder(view: View): RecyclerView.ViewHolder(view) {

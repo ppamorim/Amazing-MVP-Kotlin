@@ -19,12 +19,11 @@ import android.os.Bundle
 import com.github.ppamorim.amazingmvpkotlinrules.domain.model.Genre
 
 interface HomePresenter : Presenter<HomePresenter.HomeView> {
-  fun requestGenres(savedInstanceState: Bundle?)
+  fun requestGenres()
   interface HomeView: View {
-    fun renderGenres(subGenres: MutableList<Genre>)
+    fun renderGenres(genres: List<Genre>)
     fun showLoading()
-    fun showError()
     fun showEmpty()
-    fun showOffline(reason: Int)
+    fun showError(code: Int)
   }
 }

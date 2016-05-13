@@ -13,20 +13,20 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.amazingmvpkotlin.di.components;
+package com.amazingmvpkotlin.di;
 
-import android.app.Application;
-import com.amazingmvpkotlin.AmazingMvpApplication;
-import com.amazingmvpkotlin.di.ApplicationModule;
-import com.github.ppamorim.threadexecutor.InteractorExecutor;
-import com.github.ppamorim.threadexecutor.MainThread;
-import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
+import okhttp3.OkHttpClient;
 
-@Singleton @Component(modules = ApplicationModule.class)
-public interface ApplicationComponent {
-  void inject(AmazingMvpApplication amazingMvpApplication);
-  Application application();
-  InteractorExecutor executor();
-  MainThread mainThread();
+@Module public class NetworkModule {
+  @Provides @Singleton OkHttpClient provideOkHttpClient() {
+    return new OkHttpClient.Builder()
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .writeTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(10, TimeUnit.SECONDS)
+        .build();
+  }
 }

@@ -15,9 +15,21 @@
 */
 package com.github.ppamorim.amazingmvpkotlinrules.domain.service
 
- class GenreService : BaseService() {
-   fun requestGenres(callback: ServiceCallback) {
-     get("https://gist.githubusercontent.com/ppamorim/e26c4b6f63245a674516/"
-            + "raw/5927897b401ef43167bdfac2c19692808bb5ec4e/json.json", callback)
-   }
-}
+import com.github.ppamorim.amazingmvpkotlinrules.domain.model.Genre
+import com.squareup.moshi.Moshi
+import okhttp3.OkHttpClient
+
+/**
+ * This method provides the services of requests the lines.
+ */
+fun requestGenres(okHttp : OkHttpClient,
+                 success: (List<Genre>) -> Unit,
+                 error: (code: Int) -> Unit) =
+  get(okHttp, URL.GENRES.address, {
+    success(Moshi
+        .Builder()
+        .build()
+        .adapter(Array<Genre>::class.java)
+        .fromJson(it)
+        .asList())
+  }, error)

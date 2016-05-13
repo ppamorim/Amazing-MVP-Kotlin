@@ -17,6 +17,7 @@ package com.amazingmvpkotlin.ui.activity
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
 import android.view.View
@@ -28,6 +29,7 @@ import com.amazingmvpkotlin.R
 import com.amazingmvpkotlin.di.HomeModule
 import com.amazingmvpkotlin.di.components.DaggerHomeComponent
 import com.amazingmvpkotlin.di.components.HomeComponent
+import com.amazingmvpkotlin.ui.adapter.viewPager.GenreAdapter
 import com.github.ppamorim.amazingmvpkotlinrules.domain.model.Genre
 import com.github.ppamorim.amazingmvpkotlinrules.presenter.HomePresenter
 import javax.inject.Inject
@@ -40,6 +42,7 @@ class HomeActivity : AbstractActivity(), HomePresenter.HomeView {
 
   val toolbar by lazy { findViewById(R.id.toolbar) as Toolbar }
   val viewPager by lazy { findViewById(R.id.view_pager) as ViewPager }
+  val tabLayout by lazy { findViewById(R.id.tab_layout) as TabLayout }
   val progressBar by lazy { findViewById(R.id.progress_bar) as ProgressBar }
   val warning by lazy { findViewById(R.id.text_view_warning) as TextView }
   val tryAgain by lazy { findViewById(R.id.try_again) as Button }
@@ -55,13 +58,16 @@ class HomeActivity : AbstractActivity(), HomePresenter.HomeView {
   override fun onPostCreate(savedInstanceState: Bundle?) {
     super.onPostCreate(savedInstanceState)
     setSupportActionBar(toolbar)
+    configViewPager()
+    homePresenter.requestGenres()
   }
 
   override fun ready(): Boolean = !isFinishing
 
-  override fun renderGenres(subGenres: MutableList<Genre>) {
-      configViewPager(subGenres);
+  override fun renderGenres(genres: List<Genre>) {
+    viewPager.adapter = GenreAdapter(supportFragmentManager, genres)
     viewPager.visibility = View.VISIBLE
+    tabLayout.visibility = View.VISIBLE
     progressBar.visibility = View.GONE
     warning.visibility = View.GONE
     tryAgain.visibility = View.GONE
@@ -69,20 +75,17 @@ class HomeActivity : AbstractActivity(), HomePresenter.HomeView {
 
   override fun showLoading() {
     viewPager.visibility = View.GONE
+    tabLayout.visibility = View.GONE
     progressBar.visibility = View.VISIBLE
     warning.visibility = View.GONE
     tryAgain.visibility = View.GONE
-  }
-
-  override fun showError() {
-    showWarningView(R.string.connection_error)
   }
 
   override fun showEmpty() {
     showWarningView(R.string.empty)
   }
 
-  override fun showOffline(reason: Int) {
+  override fun showError(code: Int) {
     Snackbar.make(findViewById(R.id.container) as Toolbar,
             R.string.connection_error, Snackbar.LENGTH_LONG).show()
   }
@@ -95,8 +98,8 @@ class HomeActivity : AbstractActivity(), HomePresenter.HomeView {
     tryAgain.visibility = View.VISIBLE
   }
 
-  fun configViewPager(subGenres: MutableList<Genre>) {
-//  viewPager.setAdapter(GenreAdapter(getSupportFragmentManager(), subGenres))
+  fun configViewPager() {
+    tabLayout.setupWithViewPager(viewPager)
   }
 
   fun homeComponent(): HomeComponent? {

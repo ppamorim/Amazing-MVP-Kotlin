@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.amazingmvpkotlin">
 
+  <uses-permission android:name="android.permission.INTERNET">true</uses-permission>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE">true</uses-permission>
+
   <application android:allowBackup="true"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"

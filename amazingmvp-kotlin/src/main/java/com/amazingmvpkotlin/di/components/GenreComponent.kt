@@ -13,10 +13,16 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.github.ppamorim.amazingmvpkotlinrules.domain.util
+package com.amazingmvpkotlin.di.components
 
-enum class Tags(val value: String) {
-  GENRE("Genre"),
-  GENRES("Genres"),
-  SUBGENRES("SubGenres")
+import com.amazingmvpkotlin.di.GenreModule
+import com.amazingmvpkotlin.di.scopes.ActivityScope
+import com.amazingmvpkotlin.ui.fragment.GenreFragment
+import com.github.ppamorim.amazingmvpkotlinrules.presenter.GenrePresenter
+import dagger.Component
+
+@ActivityScope @Component(modules = arrayOf(GenreModule::class))
+interface GenreComponent {
+  fun inject(genreFragment: GenreFragment)
+  fun genrePresenter(): GenrePresenter
 }
